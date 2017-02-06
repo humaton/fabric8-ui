@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnalyzeComponent } from './analyze.component';
 import { AnalyzeOverviewComponent } from './analyze-overview/analyze-overview.component'
 
+import {RenderStackDetailsComponent} from './stackreports/render-stack-details/render-stack-details.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -26,6 +28,7 @@ const routes: Routes = [
     children: [
       { path: '',     component: AnalyzeOverviewComponent },
       { path: 'readme', loadChildren: './readme/readme.module#ReadmeModule' },
+      { path: 'stackreports', component: RenderStackDetailsComponent }
     ]
   }
 ];

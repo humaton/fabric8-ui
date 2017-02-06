@@ -1,6 +1,6 @@
 import './rxjs-extensions';
 
-import { NgModule, ApplicationRef } from '@angular/core';
+import { NgModule, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -26,6 +26,12 @@ import { FooterComponent } from './footer/footer.component';
 
 // Header
 import { HeaderComponent } from './header/header.component';
+
+//stackreports
+
+//import {RenderStackDetailsComponent} from './analyze/stackreports/render-stack-details/render-stack-details.component';
+
+import {StackModule} from './analyze/stackreports/render-stack-details/module';
 
 // Shared Services
 import { AuthenticationService } from './auth/authentication.service';
@@ -73,6 +79,7 @@ export type StoreType = {
     DropdownModule,
     FormsModule,
     HttpModule,
+    //StackModule,
     LocalStorageModule.withConfig({
       prefix: 'fabric8',
       storageType: 'localStorage'
@@ -103,6 +110,7 @@ export type StoreType = {
     ToggleService,
     UserService
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -144,4 +152,3 @@ export class AppModule {
   }
 
 }
-

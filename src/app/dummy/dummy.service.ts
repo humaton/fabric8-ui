@@ -147,6 +147,9 @@ export class DummyService {
               }, {
                 name: 'README',
                 path: 'readme'
+              }, {
+                name: 'Stack Reports',
+                path: 'stackreports',
               }
             ]
           }, {
