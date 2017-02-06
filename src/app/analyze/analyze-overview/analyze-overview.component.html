@@ -145,11 +145,60 @@
 
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center">Similarity</h2>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li *ngFor="let u of context.current.space.defaultTeam.members" class="member">
+                            <a (click)="similarStack.open()">26b5a7fd3c2948528149363577cc6eef</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 
-<modal #teamMembership title="Manage membership of BalloonPopGame Team">
+<modal #teamMembership title=" Manage membership of BalloonPopGame Team ">
     <modal-content>
         <team-membership-dialog></team-membership-dialog>
+    </modal-content>
+</modal>
+<modal #similarStack title="Create work items form recomendation ">
+    <modal-content>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Version</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Version</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
     </modal-content>
 </modal>

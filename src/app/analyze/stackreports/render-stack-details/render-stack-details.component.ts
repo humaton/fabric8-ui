@@ -45,6 +45,8 @@ export class RenderStackDetailsComponent implements OnInit {
 
   recoArray : Array<any> = [];
   currentIndex : number = 0;
+  similarStacks : Array<any> = [];
+  recoActionArray : Array<any> = [];
 
   constructor(private addWorkFlowService : AddWorkFlowService, private renderNextService : RenderNextService, private stackAnalysesService: StackAnalysesService, private stackAnalysesModel: StackAnalysesModel, private renderComponentService: RenderComponentService) { }
 
@@ -79,6 +81,23 @@ export class RenderStackDetailsComponent implements OnInit {
         ]
       }
     ];
+
+    this.recoActionArray = [
+      {
+        'headers': [
+          'name',
+          'version',
+          'action'
+        ],
+        'rows': [
+          { name: 'Sample1', version: '0.1.1', action: '-' },
+          { name: 'Sample1', version: '0.1.1', action: 'Add' },
+          { name: 'Sample1', version: '0.1.1', action: 'Change' },
+          { name: 'Sample1', version: '0.1.1', action: 'Add' }
+        ]
+      }
+    ];
+    this.similarStacks = ['stack A', 'stack B', 'stack C'];
 
   }
 
