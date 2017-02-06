@@ -145,6 +145,31 @@
 
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center">Similarity</h2>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <th>Similar stacks</th>
+                        </thead>
+                        <tr>
+                            <td><a class="btn btn-default" data-toggle="modal" data-target="#myModal">26b5a7fd3c2948528149363577cc6eef</a></td>
+                        </tr>
+                    </table>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let u of context.current.space.defaultTeam.members" class="member">
+
+                            <a class="" data-toggle="modal" data-target="#myModal">26b5a7fd3c2948528149363577cc6eef</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 
