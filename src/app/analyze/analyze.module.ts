@@ -1,4 +1,4 @@
-import { NgModule }         from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }         from '@angular/core';
 import { CommonModule }     from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
 
@@ -8,10 +8,14 @@ import { AnalyzeRoutingModule } from './analyze-routing.module';
 import { AnalyzeOverviewModule } from './analyze-overview/analyze-overview.module';
 
 import {RenderStackDetailsComponent} from './stackreports/render-stack-details/render-stack-details.component';
+import {StackModule} from './stackreports/render-stack-details/module';
+
+import {StackRecoModule} from './stackreports/stack-recommendation/module';
 
 @NgModule({
-  imports:      [ AnalyzeOverviewModule, CommonModule, AnalyzeRoutingModule, HttpModule ],
-  declarations: [ AnalyzeComponent, RenderStackDetailsComponent ],
+  imports:      [ StackModule, AnalyzeOverviewModule, CommonModule, AnalyzeRoutingModule, HttpModule ],
+  declarations: [ AnalyzeComponent ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AnalyzeModule {
   constructor(http: Http) {}
