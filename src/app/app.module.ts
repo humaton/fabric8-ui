@@ -1,3 +1,4 @@
+import { StackDetailsModule } from './analyze/stack/stack-details/stack-details.module';
 import './rxjs-extensions';
 
 import { NgModule, ApplicationRef } from '@angular/core';
@@ -43,7 +44,6 @@ import { PublicModule } from './public/public.module';
 // Shared Components
 import { SpaceDialogModule } from './space-dialog/space-dialog.module';
 import { SpaceWizardModule } from './space-wizard/space-wizard.module';
-
 import { DeleteAccountDialogModule } from './delete-account-dialog/delete-account-dialog.module';
 
 // Login
@@ -80,6 +80,7 @@ export type StoreType = {
     PublicModule,
     SpaceDialogModule,
     SpaceWizardModule,
+    StackDetailsModule,
     // AppRoutingModule must appear last
     AppRoutingModule
   ],

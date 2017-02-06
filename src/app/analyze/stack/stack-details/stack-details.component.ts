@@ -1,16 +1,21 @@
-import { Component, OnInit} from '@angular/core';
+import { Stack } from './../../../models/stack';
+import { ComponentAnalysesService } from './../component-analyses.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { StackAnalysesService } from '../stack-analyses.service';
 import { StackAnalysesModel } from '../stack-analyses.model';
-import { RenderComponentService } from '../render-component.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-render-stack-details',
-  templateUrl: './render-stack-details.component.html',
-  styleUrls: ['./render-stack-details.component.css'],
-  providers: [StackAnalysesService, StackAnalysesModel, RenderComponentService]
+  selector: 'stack-details',
+  templateUrl: './stack-details.component.html',
+  styleUrls: ['./stack-details.component.css'],
+  providers: [StackAnalysesService, StackAnalysesModel, ComponentAnalysesService]
 })
-export class RenderStackDetailsComponent implements OnInit {
+export class StackDetailsComponent implements OnInit {
+
+  @Input() stack: Stack;
+
   errorMessage: string;
   stackAnalysesData: {};
   componentAnalysesData: {};
@@ -37,16 +42,22 @@ export class RenderStackDetailsComponent implements OnInit {
   componentDataObject = {};
   componentsDataTable = [];
 
-  constructor(private stackAnalysesService: StackAnalysesService, private stackAnalysesModel: StackAnalysesModel, private renderComponentService: RenderComponentService) { }
+  constructor(
+    private stackAnalysesService: StackAnalysesService,
+    private stackAnalysesModel: StackAnalysesModel,
+    private renderComponentService: ComponentAnalysesService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
-    debugger;
-    this.getStackAnalyses();
-    //this.getComponentAnalyses();
+    //this.route.params
+    //  .subscribe((params: Params) => this.getStackAnalyses(params['id']));
+    this.getStackAnalyses(this.stack.uuid);
   }
 
-  getStackAnalyses() {
-    this.stackAnalysesService.getStackAnalyses()
+  private getStackAnalyses(id: string) {
+    this.stackAnalysesService.getStackAnalyses(id)
       .subscribe(
       stackAnalysesData => {
         this.stackAnalysesData = stackAnalysesData;
@@ -68,11 +79,9 @@ export class RenderStackDetailsComponent implements OnInit {
         this.components_with_dependency_lock_file = this.stackAnalysesData[0].metadata.components_with_dependency_lock_file;
         this.required_engines = this.stackAnalysesData[0].metadata.required_engines;
         for (var key in this.required_engines) {
-          debugger;
           this.required_enginesArr.push({ key: key, value: this.required_engines[key] });
         }
 
-        debugger;
         for (var i = 0; i < this.stackAnalysesData[0].components.length; i++) {
           var myObj = Object.assign({}, this.stackAnalysesModel);
           myObj.ecosystem = this.stackAnalysesData[0].components[i].ecosystem;
@@ -97,20 +106,14 @@ export class RenderStackDetailsComponent implements OnInit {
       );
   }
 
-  getComponentAnalyses(item) {
+  private getComponentAnalyses(item) {
     this.renderComponentService.getComponentAnalyses(item)
       .subscribe(
       componentAnalysesData => {
-        debugger;
         this.componentAnalysesData = componentAnalysesData;
       },
       error => this.errorMessage = <any>error
       );
-  }
-
-  tdClicked(item) {
-    alert('am in!!' + item);
-    this.getComponentAnalyses(item);
   }
 
 }

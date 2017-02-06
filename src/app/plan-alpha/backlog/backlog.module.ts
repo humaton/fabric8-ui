@@ -11,9 +11,9 @@ import { BacklogRoutingModule } from './backlog-routing.module';
 
 
 @NgModule({
-  imports:      [ CommonModule, 
-                  BacklogRoutingModule, 
-                  HttpModule, 
+  imports:      [ CommonModule,
+                  BacklogRoutingModule,
+                  HttpModule,
                   LocalStorageModule.withConfig({
                     prefix: 'fabric8',
                     storageType: 'localStorage'
