@@ -7,9 +7,11 @@ import { AnalyzeRoutingModule } from './analyze-routing.module';
 
 import { AnalyzeOverviewModule } from './analyze-overview/analyze-overview.module';
 
+import {RenderStackDetailsComponent} from './stackreports/render-stack-details/render-stack-details.component';
+
 @NgModule({
   imports:      [ AnalyzeOverviewModule, CommonModule, AnalyzeRoutingModule, HttpModule ],
-  declarations: [ AnalyzeComponent ],
+  declarations: [ AnalyzeComponent, RenderStackDetailsComponent ],
 })
 export class AnalyzeModule {
   constructor(http: Http) {}
