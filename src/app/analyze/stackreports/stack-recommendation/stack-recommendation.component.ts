@@ -15,6 +15,7 @@ export class StackRecommendationComponent {
 
     @Input() headers;
     @Input() rows;
+    @Input() clickable;
 
     @Output() customEvent = new EventEmitter();
 
