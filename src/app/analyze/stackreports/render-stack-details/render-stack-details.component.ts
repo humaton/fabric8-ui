@@ -112,6 +112,13 @@ export class RenderStackDetailsComponent implements OnInit {
   }
   /* Adding Single Work item */
 
+  /* Add workitem from form */
+  processWorkItemForm(event) {
+    console.log(event);
+  }
+
+  /* Add workitem from form */
+
   /* Get Recommendation */
   getRecommendations(components, recommendation : any) : void {
     console.log('Inside');

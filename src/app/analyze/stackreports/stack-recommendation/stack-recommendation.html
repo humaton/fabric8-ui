@@ -18,7 +18,7 @@
                         <input (click)="eventHandler(row)" type="checkbox" value="{{row.action}}" /> {{row.action}}
                     </span>
                     <span *ngIf="!clickable">
-                        <input type="checkbox" value="{{row.action}}" /> {{row.action}}
+                        <input name="{{row.name}}-{{row.version}}" type="checkbox" value="{{row.action}}" /> {{row.action}}
                     </span>
                 </td>
             </tr>
