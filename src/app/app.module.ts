@@ -1,3 +1,4 @@
+import { StackDetailsModule } from './analyze/stack/stack-details/stack-details.module';
 import './rxjs-extensions';
 
 import { NgModule, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -21,10 +22,8 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
-// Footer
+// Footer & Header
 import { FooterComponent } from './footer/footer.component';
-
-// Header
 import { HeaderComponent } from './header/header.component';
 
 //stackreports
@@ -34,28 +33,25 @@ import { HeaderComponent } from './header/header.component';
 import {StackModule} from './analyze/stackreports/render-stack-details/module';
 
 // Shared Services
-import { AuthenticationService } from './auth/authentication.service';
+import { AuthenticationService } from './shared/authentication.service';
 import { Broadcaster } from './shared/broadcaster.service';
-import { DummyService } from './dummy/dummy.service';
+import { DummyService } from './shared/dummy.service';
 import { Logger } from './shared/logger.service';
-import { UserService } from './user/user.service';
+import { LoginService } from './shared/login.service';
+import { UserService } from './shared/user.service';
 import { ToggleService } from './toggle/toggle.service';
 import { ContextService } from './shared/context.service';
-import { ProfileService } from './profile/profile.service';
-
-// Share Modules
-import { PublicModule } from './public/public.module';
 
 // Shared Components
 import { SpaceDialogModule } from './space-dialog/space-dialog.module';
 import { SpaceWizardModule } from './space-wizard/space-wizard.module';
-
+import { PublicModule } from './public/public.module';
 import { DeleteAccountDialogModule } from './delete-account-dialog/delete-account-dialog.module';
 
+// Component Services
+import { ProfileService } from './profile/profile.service';
+
 // Login
-import { SigninComponent } from './signin/signin.component';
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -87,15 +83,14 @@ export type StoreType = {
     PublicModule,
     SpaceDialogModule,
     SpaceWizardModule,
+    StackDetailsModule,
     // AppRoutingModule must appear last
     AppRoutingModule
   ],
   declarations: [ // declare which components, directives and pipes belong to the module
     AppComponent,
     FooterComponent,
-    HeaderComponent,
-    LoginComponent,
-    SigninComponent
+    HeaderComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

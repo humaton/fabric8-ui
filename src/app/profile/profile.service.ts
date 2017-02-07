@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DummyService } from './../dummy/dummy.service';
+import { DummyService } from './../shared/dummy.service';
 import { Broadcaster } from '../shared/broadcaster.service';
 import { Profile } from './../models/profile';
 import { User } from './../models/user';
@@ -53,9 +53,8 @@ export class ProfileService {
       this.current.fullName &&
       this.current.primaryEmail &&
       this.current.username
-      /* TODO Add imageURL
-      this.current.imageURL
-      */
+      // TODO Add imageURL
+      //this.current.imageURL
       ) {
       return true;
     } else {
