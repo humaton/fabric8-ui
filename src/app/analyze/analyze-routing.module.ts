@@ -1,4 +1,4 @@
-import { NgModule }  from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AnalyzeComponent } from './analyze.component';
@@ -26,15 +26,15 @@ const routes: Routes = [
     path: '',
     component: AnalyzeComponent,
     children: [
-      { path: '',     component: AnalyzeOverviewComponent },
+      { path: '', component: AnalyzeOverviewComponent },
       { path: 'readme', loadChildren: './readme/readme.module#ReadmeModule' },
-      { path: 'stackreports', component: RenderStackDetailsComponent }
+      { path: 'stack', component: RenderStackDetailsComponent }
     ]
   }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class AnalyzeRoutingModule {}
+export class AnalyzeRoutingModule { }

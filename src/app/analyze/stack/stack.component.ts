@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'alm-analyze',
-  templateUrl: 'analyze.component.html',
-  styleUrls: ['./analyze.component.scss']})
-export class AnalyzeComponent implements OnInit {
+  selector: 'alm-stack',
+  templateUrl: 'stack.component.html',
+  styleUrls: ['./stack.component.scss']
+})
+export class StackComponent implements OnInit {
 
   constructor(
     private router: Router) {
