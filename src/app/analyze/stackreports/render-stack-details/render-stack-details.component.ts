@@ -6,6 +6,7 @@ import { RenderComponentService } from '../render-component.service';
 import {RenderNextService} from './render-next-service';
 import {AddWorkFlowService} from './add-work-flow.service';
 import { Observable } from 'rxjs/Observable';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-render-stack-details',
@@ -47,7 +48,12 @@ export class RenderStackDetailsComponent implements OnInit {
   recoArray : Array<any> = [];
   currentIndex : number = 0;
 
-  constructor(private addWorkFlowService : AddWorkFlowService, private renderNextService : RenderNextService, private stackAnalysesService: StackAnalysesService, private stackAnalysesModel: StackAnalysesModel, private renderComponentService: RenderComponentService) { }
+  similar_stacks: Array<any> = [];
+
+  public recomendationForm = this.fb.group({
+    row: ["[{name: 'Sample1', version: '0.1.1', custom: '{name: 'Add'}'}]"]
+  });
+  constructor(public fb: FormBuilder, private addWorkFlowService : AddWorkFlowService, private renderNextService : RenderNextService, private stackAnalysesService: StackAnalysesService, private stackAnalysesModel: StackAnalysesModel, private renderComponentService: RenderComponentService) { }
 
   ngOnInit() {
     ////debugger;
@@ -56,7 +62,8 @@ export class RenderStackDetailsComponent implements OnInit {
 
     this.currentStackHeaders = [
         'name',
-        'version'
+        'version',
+        'action'
     ];
 
     this.currentStackRows = [
@@ -135,7 +142,7 @@ export class RenderStackDetailsComponent implements OnInit {
 
   /* Adding Single Work item */
   addWorkItem(row : any) : void {
-    let workItemData : any = {"data":{"attributes":{"system.state":"new","system.title":"Sample Test","system.description":"Sample Description to test"},"relationships":{"baseType":{"data":{"id":"userstory","type":"workitemtypes"}}},"type":"workitems","id":"55"}};  
+    let workItemData : any = {"data":{"attributes":{"system.state":"new","system.title":"Sample Test","system.description":"Sample Description to test"},"relationships":{"baseType":{"data":{"id":"userstory","type":"workitemtypes"}}},"type":"workitems","id":"55"}};
     workItemData.data.attributes["system.title"] = row.custom.name + ' ' + row.name + ' ' + row.version;
     let workflow : Observable<any> = this.addWorkFlowService.addWorkFlow(workItemData);
     workflow.subscribe((data) => {
@@ -153,17 +160,17 @@ export class RenderStackDetailsComponent implements OnInit {
   getRecommendations(components, recommendation : any) : void {
     console.log('Inside');
     console.log(recommendation);
-    const similar_stacks : any = recommendation.similar_stacks[0];
-    const analysis : any = similar_stacks.analysis;
+    this.similar_stacks = recommendation.similar_stacks;
+    const analysis : any = this.similar_stacks[0].analysis;
     let missing_packages : Array<any> = analysis.missing_packages;
     let version_mismatch : Array<any> = analysis.version_mismatch;
-    
-    const url : string = similar_stacks.uri;
+
+    const url : string = this.similar_stacks[0].uri;
     this.recoArray[this.currentIndex]['rows'] = [];
     this.recoArray[this.currentIndex]['url'] = url;
-    // for (var component in components) {
-    //   this.recoArray[this.currentIndex]['rows'].push({ name: components[component].name, version: components[component].version });
-    // }
+    for (var component in components) {
+      this.recoArray[this.currentIndex]['rows'].push({ name: components[component].name, version: components[component].version });
+    }
     for(let i in missing_packages) {
       this.recoArray[this.currentIndex]['rows'].push({
         'name': missing_packages[i],
@@ -290,4 +297,10 @@ export class RenderStackDetailsComponent implements OnInit {
     this.getComponentAnalyses(item);
   }
 
+  // process recomendation form //
+  processForm(row: any) {
+    console.log(event);
+    console.log(this.recomendationForm.value);
+  }
+  // process recomendation form //
 }

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class StackAnalysesService {
-  
+
   private stackAnalysesUrl = '';
 
   constructor(private http: Http) { }
