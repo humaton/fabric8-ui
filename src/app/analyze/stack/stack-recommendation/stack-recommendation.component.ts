@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation, Input, Output, EventEmitter} from '@angular/core';
 
-import {AddWorkFlowService} from '../render-stack-details/add-work-flow.service';
+import {AddWorkFlowService} from '../stack-details/add-work-flow.service';
 
 import { Observable } from 'rxjs/Observable';
 

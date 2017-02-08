@@ -5,21 +5,24 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { StackAnalysesModel } from '../stack-analyses.model';
+
 @Injectable()
-export class StackAnalysesService {
+export class RenderComponentService {
 
-  private stackAnalysesUrl = '';
+  private componentAnalysesUrl = '';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private stackAnalysesModel: StackAnalysesModel) { }
 
-  getStackAnalyses(): Observable<any> {
-    return this.http.get(this.stackAnalysesUrl)
+
+  getComponentAnalyses(data:StackAnalysesModel): Observable<any> {
+    return this.http.get(this.componentAnalysesUrl+data.ecosystem+"/"+ data.pkg+"/"+data.version)
       .map(this.extractData)
       .catch(this.handleError);
   }
   private extractData(res: Response) {
     let body = res.json();
-    return body.result || {};
+    return body || {};
   }
 
   private handleError(error: Response | any) {
@@ -35,7 +38,5 @@ export class StackAnalysesService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
-
-
 
 }

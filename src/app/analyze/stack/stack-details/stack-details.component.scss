@@ -1,7 +1,7 @@
 .render-stack-tiles {
   padding: 1em;
   background: #eeeeee;
-  border: 2px solid #fff !important;
+  border: 2px solid #fff;
 }
 
 
@@ -13,7 +13,7 @@
     background: rgba(0, 0, 0, 0.5);
     height: 100%;
     font-family: 'Segoe UI Light';
-    
+
     .modal-inner {
       left: 50%;
       top: 50%;
@@ -33,11 +33,6 @@
           float: right;
           cursor: pointer;
         }
-      }
-
-      .modal-subject {
-        padding: 10px;
-        font-size: 16px;
-      }
-    }
+   }
+}
 }
