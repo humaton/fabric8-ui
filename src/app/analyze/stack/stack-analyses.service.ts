@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Logger } from '../../shared/logger.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -8,10 +9,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class StackAnalysesService {
 
-  readonly STACK_ANALYSES_BASE_URL: string
-    = 'http://ose-vm1.lab.eng.blr.redhat.com:32000/api/v1/stack-analyses/';
+  private stackAnalysesUrl = process.env.STACK_API_URL;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private logger: Logger) { }
 
   getStackAnalyses(id: string): Observable<any> {
     return this.http.get(this.buildStackAnalysesUrl(id))
@@ -20,7 +20,7 @@ export class StackAnalysesService {
   }
 
   private buildStackAnalysesUrl(id: string): string {
-    return this.STACK_ANALYSES_BASE_URL + id;
+    return this.stackAnalysesUrl + 'stack-analyses/' + id;
   }
 
   private extractData(res: Response) {
@@ -38,7 +38,7 @@ export class StackAnalysesService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    this.logger.error(errMsg);
     return Observable.throw(errMsg);
   }
 

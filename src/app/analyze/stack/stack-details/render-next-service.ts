@@ -9,10 +9,10 @@ import 'rxjs/add/operator/map';
 export class RenderNextService {
   constructor(private http: Http) { }
 
-  getNextList(url : string) : Observable<any> {
-      return this   .http.get(url)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+  getNextList(url: string): Observable<any> {
+    return this.http.get(url)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {

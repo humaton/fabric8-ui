@@ -10,13 +10,14 @@ import { StackAnalysesModel } from '../stack-analyses.model';
 @Injectable()
 export class RenderComponentService {
 
-  private componentAnalysesUrl = '';
+  private componentAnalysesUrl = process.env.STACK_API_URL + '/analyses';
 
   constructor(private http: Http, private stackAnalysesModel: StackAnalysesModel) { }
 
 
-  getComponentAnalyses(data:StackAnalysesModel): Observable<any> {
-    return this.http.get(this.componentAnalysesUrl+data.ecosystem+"/"+ data.pkg+"/"+data.version)
+  getComponentAnalyses(data: StackAnalysesModel): Observable<any> {
+    return this.http.get(this.componentAnalysesUrl + data.ecosystem +
+      '/' + data.pkg + '/' + data.version)
       .map(this.extractData)
       .catch(this.handleError);
   }

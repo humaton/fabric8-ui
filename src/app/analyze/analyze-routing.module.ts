@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AnalyzeComponent } from './analyze.component';
-import { AnalyzeOverviewComponent } from './analyze-overview/analyze-overview.component'
-
-import {RenderStackDetailsComponent} from './stackreports/render-stack-details/render-stack-details.component';
+import { AnalyzeOverviewComponent } from './analyze-overview/analyze-overview.component';
 
 const routes: Routes = [
   {
@@ -29,7 +27,6 @@ const routes: Routes = [
       { path: '', component: AnalyzeOverviewComponent },
       { path: 'readme', loadChildren: './readme/readme.module#ReadmeModule' },
       { path: 'stack', loadChildren: './stack/stack.module#StackModule' },
-      //{ path: 'stack', component: RenderStackDetailsComponent }
     ]
   }
 ];

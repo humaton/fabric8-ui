@@ -1,13 +1,13 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {ContainerTogglerComponent} from './container-toggler.component';
+import { ContainerTogglerComponent } from './container-toggler.component';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [ContainerTogglerComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    exports: [ContainerTogglerComponent]
+  imports: [CommonModule],
+  declarations: [ContainerTogglerComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [ContainerTogglerComponent]
 })
 
-export class ContainerTogglerModule {}
+export class ContainerTogglerModule { }

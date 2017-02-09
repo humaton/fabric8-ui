@@ -1,7 +1,7 @@
 import { StackDetailsModule } from './analyze/stack/stack-details/stack-details.module';
 import './rxjs-extensions';
 
-import { NgModule, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -28,8 +28,6 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
 //stackreports
-
-//import {RenderStackDetailsComponent} from './analyze/stackreports/render-stack-details/render-stack-details.component';
 
 import {StackModule} from './analyze/stackreports/render-stack-details/module';
 
@@ -76,7 +74,6 @@ export type StoreType = {
     DropdownModule,
     FormsModule,
     HttpModule,
-    //StackModule,
     LocalStorageModule.withConfig({
       prefix: 'fabric8',
       storageType: 'localStorage'
@@ -85,9 +82,9 @@ export type StoreType = {
     SpaceDialogModule,
     SpaceWizardModule,
     StackDetailsModule,
+    ReactiveFormsModule,
     // AppRoutingModule must appear last
-    AppRoutingModule,
-    ReactiveFormsModule
+    AppRoutingModule
   ],
   declarations: [ // declare which components, directives and pipes belong to the module
     AppComponent,
@@ -107,7 +104,7 @@ export type StoreType = {
     ToggleService,
     UserService
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
