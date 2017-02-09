@@ -184,8 +184,8 @@ export class StackDetailsComponent implements OnInit {
   getRecommendations(components, recommendation: any): void {
     this.similarStacks = recommendation.similar_stacks;
     const analysis: any = this.similarStacks[0].analysis;
-    let missing_packages: Array<any> = analysis.missing_packages;
-    let version_mismatch: Array<any> = analysis.version_mismatch;
+    let missingPackages: Array<any> = analysis.missing_packages;
+    let versionMismatch: Array<any> = analysis.version_mismatch;
 
     const url: string = this.similarStacks[0].uri;
     this.recoArray[this.currentIndex]['rows'] = [];
@@ -193,9 +193,9 @@ export class StackDetailsComponent implements OnInit {
     for (var component in components) {
       this.recoArray[this.currentIndex]['rows'].push({ name: components[component].name, version: components[component].version });
     }
-    for (let i in missing_packages) {
+    for (let i in missingPackages) {
       this.recoArray[this.currentIndex]['rows'].push({
-        'name': missing_packages[i],
+        'name': missingPackages[i],
         'version': '',
         'custom': {
           'name': 'Add',
@@ -203,9 +203,9 @@ export class StackDetailsComponent implements OnInit {
         }
       });
     }
-    for (let i in version_mismatch) {
+    for (let i in versionMismatch) {
       this.recoArray[this.currentIndex]['rows'].push({
-        'name': version_mismatch[i],
+        'name': versionMismatch[i],
         'version': '',
         'custom': {
           'name': 'Update',
