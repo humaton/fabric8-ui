@@ -313,5 +313,4 @@ export class StackDetailsComponent implements OnInit {
     this.logger.log(event);
     this.logger.log(this.recomendationForm.value);
   }
-
 }
