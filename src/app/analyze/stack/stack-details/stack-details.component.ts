@@ -1,17 +1,52 @@
 import { Stack } from './../../../models/stack';
 import { ComponentAnalysesService } from './../component-analyses.service';
+<<<<<<< HEAD
+<<<<<<< HEAD
 import { Component, OnInit, Input } from '@angular/core';
 
 import { StackAnalysesService } from '../stack-analyses.service';
 import { StackAnalysesModel } from '../stack-analyses.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+
+import { Logger } from '../../../shared/logger.service';
+import { StackAnalysesService } from '../stack-analyses.service';
+import { StackAnalysesModel } from '../stack-analyses.model';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { RenderComponentService } from './render-component.service';
+import { RenderNextService } from './render-next-service';
+import { AddWorkFlowService } from './add-work-flow.service';
+import { Observable } from 'rxjs/Observable';
+import { FormBuilder } from '@angular/forms';
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
 
 @Component({
   selector: 'stack-details',
   templateUrl: './stack-details.component.html',
+<<<<<<< HEAD
+<<<<<<< HEAD
   styleUrls: ['./stack-details.component.css'],
   providers: [StackAnalysesService, StackAnalysesModel, ComponentAnalysesService]
 })
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+  styleUrls: ['./stack-details.component.scss'],
+  providers: [AddWorkFlowService, RenderNextService, StackAnalysesService,
+    StackAnalysesModel, RenderComponentService, ComponentAnalysesService, Logger],
+  encapsulation: ViewEncapsulation.None
+})
+
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
 export class StackDetailsComponent implements OnInit {
 
   @Input() stack: Stack;
@@ -42,23 +77,225 @@ export class StackDetailsComponent implements OnInit {
   componentDataObject = {};
   componentsDataTable = [];
 
+<<<<<<< HEAD
+<<<<<<< HEAD
   constructor(
     private stackAnalysesService: StackAnalysesService,
     private stackAnalysesModel: StackAnalysesModel,
     private renderComponentService: ComponentAnalysesService,
     private route: ActivatedRoute,
     private router: Router,
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+  currentStackRows: Array<any> = [];
+  currentStackHeaders: Array<string> = [];
+
+  recoArray: Array<any> = [];
+  currentIndex: number = 0;
+
+  similarStacks: Array<any> = [];
+
+  public recomendationForm = this.fb.group({
+    row: ["[{name: 'Sample1', version: '0.1.1', custom: '{name: 'Add'}'}]"]
+  });
+  constructor(
+    public fb: FormBuilder,
+    private addWorkFlowService: AddWorkFlowService,
+    private renderNextService: RenderNextService,
+    private stackAnalysesService: StackAnalysesService,
+    private stackAnalysesModel: StackAnalysesModel,
+    private renderComponentService: ComponentAnalysesService,
+    private logger: Logger,
+    private route: ActivatedRoute,
+    private router: Router
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
   ) { }
 
   ngOnInit() {
     this.getStackAnalyses(this.stack.uuid);
+<<<<<<< HEAD
+<<<<<<< HEAD
   }
 
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+
+
+    this.currentStackHeaders = [
+      'name',
+      'version',
+      'action'
+    ];
+
+    this.currentStackRows = [
+      { name: 'Sample1', version: '0.1.1' },
+      { name: 'Sample1', version: '0.1.1' },
+      { name: 'Sample1', version: '0.1.1' },
+      { name: 'Sample1', version: '0.1.1' }
+    ];
+
+    this.recoArray = [
+      {
+        'headers': [
+          'Name',
+          'Version',
+          'Action'
+        ],
+        'rows': [
+          { name: 'Sample1', version: '0.1.1' },
+          { name: 'Sample1', version: '0.1.1' },
+          { name: 'Sample1', version: '0.1.1' },
+          { name: 'Sample1', version: '0.1.1' }
+        ]
+      }
+    ];
+  }
+
+
+  /* Modal - TODO: Make it Angular2, For now it is in Plain Javascript */
+
+  openModal(modalInformation): void {
+    let body: HTMLElement = document.getElementsByTagName('body')[0];
+    let modal: Element;
+
+    this.closeModal();
+
+    modal = document.createElement('div');
+    modal.classList.add('modal-container');
+
+    let innerModal: Element = document.createElement('div');
+    innerModal.classList.add('modal-inner');
+
+    modal.appendChild(innerModal);
+
+    let head: Element = document.createElement('div');
+    head.innerHTML = modalInformation.header + '<span class="close_icon">x</span>';
+    head.classList.add('modal-head');
+
+    let subject: Element = document.createElement('div');
+    subject.innerHTML = modalInformation.subject;
+    subject.classList.add('modal-subject');
+
+    innerModal.appendChild(head);
+    innerModal.appendChild(subject);
+
+    body.appendChild(modal);
+
+    modal.addEventListener('click', (event) => {
+      let tgt: any = event.target;
+      if (tgt.classList.contains('close_icon')) {
+        this.closeModal();
+      }
+    });
+  }
+
+  closeModal(): void {
+    let body: HTMLElement = document.getElementsByTagName('body')[0];
+
+    let cache: NodeList = document.getElementsByClassName('modal-container');
+
+    if (cache && cache.length > 0) {
+      body.removeChild(cache[0]);
+    }
+  }
+
+  /* Modal */
+
+  /* Adding Single Work item */
+  addWorkItem(row: any): void {
+    let workItemData: any = { 'data': { 'attributes': { 'system.state': 'new',
+                              'system.title': 'Sample Test',
+                              'system.description': 'Sample Description to test' },
+                              'relationships':
+                            { 'baseType': { 'data':
+                            { 'id': 'userstory', 'type': 'workitemtypes' } } },
+                            'type': 'workitems', 'id': '55' } };
+
+    workItemData.data.attributes["system.title"] = row.custom.name + ' ' + row.name + ' ' + row.version;
+    let workflow: Observable<any> = this.addWorkFlowService.addWorkFlow(workItemData);
+    workflow.subscribe((data) => {
+      let baseUrl: string = 'http://demo.almighty.io/work-item/list/detail/' + data.data.id;
+      this.openModal({
+        header: 'Response for Work item',
+        subject: 'Successfully created a work item. You can see it here! <a target="_blank" href="' + baseUrl + '">Link</a>'
+      });
+    });
+  }
+  /* Adding Single Work item */
+
+  /* Get Recommendation */
+  getRecommendations(components, recommendation: any): void {
+    this.similarStacks = recommendation.similar_stacks;
+    const analysis: any = this.similarStacks[0].analysis;
+    let missingPackages: Array<any> = analysis.missing_packages;
+    let versionMismatch: Array<any> = analysis.version_mismatch;
+
+    const url: string = this.similarStacks[0].uri;
+    this.recoArray[this.currentIndex]['rows'] = [];
+    this.recoArray[this.currentIndex]['url'] = url;
+    for (var component in components) {
+      this.recoArray[this.currentIndex]['rows'].push({ name: components[component].name, version: components[component].version });
+    }
+    for (let i in missingPackages) {
+      this.recoArray[this.currentIndex]['rows'].push({
+        'name': missingPackages[i],
+        'version': '',
+        'custom': {
+          'name': 'Add',
+          'type': 'checkbox'
+        }
+      });
+    }
+    for (let i in versionMismatch) {
+      this.recoArray[this.currentIndex]['rows'].push({
+        'name': versionMismatch[i],
+        'version': '',
+        'custom': {
+          'name': 'Update',
+          'type': 'checkbox'
+        }
+      });
+    }
+  }
+
+
+  getComponents(components): void {
+    this.currentStackRows = [];
+    for (var component in components) {
+      this.currentStackRows.push({ name: components[component].name, version: components[component].version });
+    }
+  }
+
+
+
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
   private getStackAnalyses(id: string) {
     this.stackAnalysesService.getStackAnalyses(id)
       .subscribe(
       stackAnalysesData => {
         this.stackAnalysesData = stackAnalysesData;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+
+        this.getRecommendations(this.stackAnalysesData[0].components, this.stackAnalysesData[0].recommendation.recommendations);
+        this.getComponents(this.stackAnalysesData[0].components);
+
+
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
         this.averageUsage = this.stackAnalysesData[0].usage.average_usage;
         this.lowPublicUsageComponents = this.stackAnalysesData[0].usage.low_public_usage_components;
         this.redhatDistributedComponents = this.stackAnalysesData[0].usage.redhat_distributed_components;
@@ -76,6 +313,8 @@ export class StackDetailsComponent implements OnInit {
         this.componentsWithTests = this.stackAnalysesData[0].metadata.components_with_tests;
         this.componentsWithDependencyLockFile = this.stackAnalysesData[0].metadata.components_with_dependency_lock_file;
         this.requiredEngines = this.stackAnalysesData[0].metadata.required_engines;
+<<<<<<< HEAD
+<<<<<<< HEAD
         for (let key in this.requiredEngines) {
           if (this.requiredEngines.hasOwnProperty(key)) {
             this.requiredEnginesArr.push({ key: key, value: this.requiredEngines[key] });
@@ -84,6 +323,19 @@ export class StackDetailsComponent implements OnInit {
 
         for (let i = 0; i < this.stackAnalysesData[0].components.length; i++) {
           let myObj = Object.assign({}, this.stackAnalysesModel);
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+        for (var key in this.requiredEngines) {
+          this.requiredEnginesArr.push({ key: key, value: this.requiredEngines[key] });
+        }
+
+        for (var i = 0; i < this.stackAnalysesData[0].components.length; i++) {
+          var myObj = Object.assign({}, this.stackAnalysesModel);
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
           myObj.ecosystem = this.stackAnalysesData[0].components[i].ecosystem;
           myObj.pkg = this.stackAnalysesData[0].components[i].name;
           myObj.version = this.stackAnalysesData[0].components[i].version;
@@ -106,7 +358,30 @@ export class StackDetailsComponent implements OnInit {
       );
   }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
   private getComponentAnalyses(item) {
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+  handleNext(value): void {
+    // ++ this.currentIndex;
+    // Hit a new Ajax call and populate the Array
+    let nextObservable: Observable<any> = this.renderNextService.getNextList(this.recoArray[this.currentIndex]['url']);
+    nextObservable.subscribe((data) => {
+      this.logger.log(data);
+    });
+  }
+
+  handlePrevious(value): void {
+    --this.currentIndex;
+  }
+
+  getComponentAnalyses(item) {
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
     this.renderComponentService.getComponentAnalyses(item)
       .subscribe(
       componentAnalysesData => {
@@ -116,4 +391,25 @@ export class StackDetailsComponent implements OnInit {
       );
   }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 97e90ae... fixup merge conflict recommendor
+  tdClicked(item) {
+    alert('am in!!' + item);
+    this.getComponentAnalyses(item);
+  }
+
+  // process recomendation form //
+  processForm(row: any) {
+    this.logger.log(event);
+    this.logger.log(this.recomendationForm.value);
+  }
+
+<<<<<<< HEAD
+>>>>>>> e5f6d20... add recommender feature under analyze
 }
+=======
+}
+>>>>>>> 97e90ae... fixup merge conflict recommendor
