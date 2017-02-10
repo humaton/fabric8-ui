@@ -1,15 +1,5 @@
 import { Stack } from './../../../models/stack';
 import { ComponentAnalysesService } from './../component-analyses.service';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Component, OnInit, Input } from '@angular/core';
-
-import { StackAnalysesService } from '../stack-analyses.service';
-import { StackAnalysesModel } from '../stack-analyses.model';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 import { Logger } from '../../../shared/logger.service';
@@ -21,32 +11,16 @@ import { RenderNextService } from './render-next-service';
 import { AddWorkFlowService } from './add-work-flow.service';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder } from '@angular/forms';
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
 
 @Component({
   selector: 'stack-details',
   templateUrl: './stack-details.component.html',
-<<<<<<< HEAD
-<<<<<<< HEAD
-  styleUrls: ['./stack-details.component.css'],
-  providers: [StackAnalysesService, StackAnalysesModel, ComponentAnalysesService]
-})
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
   styleUrls: ['./stack-details.component.scss'],
   providers: [AddWorkFlowService, RenderNextService, StackAnalysesService,
     StackAnalysesModel, RenderComponentService, ComponentAnalysesService, Logger],
   encapsulation: ViewEncapsulation.None
 })
 
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
 export class StackDetailsComponent implements OnInit {
 
   @Input() stack: Stack;
@@ -77,17 +51,6 @@ export class StackDetailsComponent implements OnInit {
   componentDataObject = {};
   componentsDataTable = [];
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  constructor(
-    private stackAnalysesService: StackAnalysesService,
-    private stackAnalysesModel: StackAnalysesModel,
-    private renderComponentService: ComponentAnalysesService,
-    private route: ActivatedRoute,
-    private router: Router,
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
   currentStackRows: Array<any> = [];
   currentStackHeaders: Array<string> = [];
 
@@ -109,21 +72,10 @@ export class StackDetailsComponent implements OnInit {
     private logger: Logger,
     private route: ActivatedRoute,
     private router: Router
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
   ) { }
 
   ngOnInit() {
     this.getStackAnalyses(this.stack.uuid);
-<<<<<<< HEAD
-<<<<<<< HEAD
-  }
-
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
 
 
     this.currentStackHeaders = [
@@ -273,29 +225,16 @@ export class StackDetailsComponent implements OnInit {
 
 
 
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
   private getStackAnalyses(id: string) {
     this.stackAnalysesService.getStackAnalyses(id)
       .subscribe(
       stackAnalysesData => {
         this.stackAnalysesData = stackAnalysesData;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
 
         this.getRecommendations(this.stackAnalysesData[0].components, this.stackAnalysesData[0].recommendation.recommendations);
         this.getComponents(this.stackAnalysesData[0].components);
 
 
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
         this.averageUsage = this.stackAnalysesData[0].usage.average_usage;
         this.lowPublicUsageComponents = this.stackAnalysesData[0].usage.low_public_usage_components;
         this.redhatDistributedComponents = this.stackAnalysesData[0].usage.redhat_distributed_components;
@@ -313,29 +252,12 @@ export class StackDetailsComponent implements OnInit {
         this.componentsWithTests = this.stackAnalysesData[0].metadata.components_with_tests;
         this.componentsWithDependencyLockFile = this.stackAnalysesData[0].metadata.components_with_dependency_lock_file;
         this.requiredEngines = this.stackAnalysesData[0].metadata.required_engines;
-<<<<<<< HEAD
-<<<<<<< HEAD
-        for (let key in this.requiredEngines) {
-          if (this.requiredEngines.hasOwnProperty(key)) {
-            this.requiredEnginesArr.push({ key: key, value: this.requiredEngines[key] });
-          }
-        }
-
-        for (let i = 0; i < this.stackAnalysesData[0].components.length; i++) {
-          let myObj = Object.assign({}, this.stackAnalysesModel);
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
         for (var key in this.requiredEngines) {
           this.requiredEnginesArr.push({ key: key, value: this.requiredEngines[key] });
         }
 
         for (var i = 0; i < this.stackAnalysesData[0].components.length; i++) {
           var myObj = Object.assign({}, this.stackAnalysesModel);
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
           myObj.ecosystem = this.stackAnalysesData[0].components[i].ecosystem;
           myObj.pkg = this.stackAnalysesData[0].components[i].name;
           myObj.version = this.stackAnalysesData[0].components[i].version;
@@ -358,12 +280,6 @@ export class StackDetailsComponent implements OnInit {
       );
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  private getComponentAnalyses(item) {
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
   handleNext(value): void {
     // ++ this.currentIndex;
     // Hit a new Ajax call and populate the Array
@@ -378,10 +294,6 @@ export class StackDetailsComponent implements OnInit {
   }
 
   getComponentAnalyses(item) {
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
     this.renderComponentService.getComponentAnalyses(item)
       .subscribe(
       componentAnalysesData => {
@@ -391,11 +303,6 @@ export class StackDetailsComponent implements OnInit {
       );
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 97e90ae... fixup merge conflict recommendor
   tdClicked(item) {
     alert('am in!!' + item);
     this.getComponentAnalyses(item);
@@ -407,9 +314,4 @@ export class StackDetailsComponent implements OnInit {
     this.logger.log(this.recomendationForm.value);
   }
 
-<<<<<<< HEAD
->>>>>>> e5f6d20... add recommender feature under analyze
 }
-=======
-}
->>>>>>> 97e90ae... fixup merge conflict recommendor

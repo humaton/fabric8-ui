@@ -11,15 +11,9 @@ describe('StackDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-<<<<<<< HEAD
-      declarations: [ StackDetailsComponent ]
-    })
-    .compileComponents();
-=======
       declarations: [StackDetailsComponent]
     })
       .compileComponents();
->>>>>>> e5f6d20... add recommender feature under analyze
   }));
 
   beforeEach(() => {

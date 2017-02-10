@@ -82,14 +82,7 @@ export type StoreType = {
     SpaceDialogModule,
     SpaceWizardModule,
     StackDetailsModule,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     ReactiveFormsModule,
->>>>>>> e5f6d20... add recommender feature under analyze
-=======
-    ReactiveFormsModule,
->>>>>>> 97e90ae... fixup merge conflict recommendor
     // AppRoutingModule must appear last
     AppRoutingModule
   ],
